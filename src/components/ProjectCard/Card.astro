@@ -1,0 +1,34 @@
+---
+import type { Project } from '../../types/projects';
+import CardFront from './CardFront.astro';
+import CardBack from './CardBack.astro';
+
+interface Props extends Project {}
+
+const props = Astro.props;
+const isDefaultModel = props.modelUrl.includes('viewer.autodesk.com/id/');
+---
+
+<div class="bg-white rounded-xl shadow-lg overflow-hidden group">
+  <div class="relative [perspective:1000px]">
+    <div 
+      class="relative w-full transition-transform duration-700 [transform-style:preserve-3d]" 
+      data-card-inner
+    >
+      <CardFront {...props} isDefaultModel={isDefaultModel} />
+      <CardBack 
+        modelUrl={props.modelUrl} 
+        isDefaultModel={isDefaultModel} 
+        serviceDescription={props.description}
+      />
+    </div>
+  </div>
+</div>
+
+<script>
+  import { initializeCard } from './cardController';
+  
+  document.querySelectorAll('[data-card-inner]').forEach(card => {
+    initializeCard(card);
+  });
+</script>

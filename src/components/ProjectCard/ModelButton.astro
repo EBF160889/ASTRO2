@@ -1,0 +1,29 @@
+---
+interface Props {
+  isDefaultModel: boolean;
+}
+
+const { isDefaultModel } = Astro.props;
+
+const buttonClasses = isDefaultModel 
+  ? "bg-gray-900 hover:bg-gray-800" 
+  : "bg-red-600 hover:bg-red-700";
+---
+
+<button
+  class={`absolute bottom-4 left-4 ${buttonClasses} text-white px-6 py-3 rounded-lg transition-colors flex items-center space-x-2 z-10`}
+  data-view-model
+>
+  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    {isDefaultModel ? (
+      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+    ) : (
+      <>
+        <path d="M12 3v19"/>
+        <path d="M5 10h14"/>
+        <path d="M5 15h14"/>
+      </>
+    )}
+  </svg>
+  <span>{isDefaultModel ? 'Ver Servicio' : 'Ver Modelo 3D'}</span>
+</button>

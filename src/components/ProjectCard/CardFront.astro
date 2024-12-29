@@ -1,0 +1,28 @@
+---
+import type { Project } from '../../types/projects';
+import ImageCarousel from './ImageCarousel.astro';
+import ProjectInfo from './ProjectInfo.astro';
+import ModelButton from './ModelButton.astro';
+
+interface Props extends Project {
+  isDefaultModel: boolean;
+}
+
+const { title, description, imageUrl, services, details, isDefaultModel } = Astro.props;
+
+const images = [imageUrl];
+if (details.additionalImages) {
+  images.push(...details.additionalImages);
+}
+---
+
+<div class="absolute inset-0 w-full [backface-visibility:hidden]">
+  <ImageCarousel images={images} title={title} />
+  <ProjectInfo
+    title={title}
+    description={description}
+    services={services}
+    details={details}
+  />
+  <ModelButton isDefaultModel={isDefaultModel} />
+</div>
